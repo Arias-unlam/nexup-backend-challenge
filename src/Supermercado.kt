@@ -1,8 +1,11 @@
 import java.lang.IllegalStateException
+import java.time.DayOfWeek
+import java.time.LocalTime
 
 class Supermercado(
     val id: Int,
-    val nombre: String
+    val nombre: String,
+    val horarioSemanal: HorarioSemanal? = null
 ){
     init {
         require(nombre.isNotBlank()) { "El nombre del supermercado no puede estar vacio" }
@@ -71,6 +74,11 @@ class Supermercado(
     //Obtiene el stock actual de un producto
     fun getStockProducto(idProducto: Int): Int {
         return inventario[idProducto] ?: 0
+    }
+
+    //verifica si el supermercado esta abierto en un dia y hora especificos
+    fun isOpenAt(dayOfWeek: DayOfWeek, time: LocalTime): Boolean {
+        return horarioSemanal?.isOpenAt(dayOfWeek, time) ?: false
     }
 
 }

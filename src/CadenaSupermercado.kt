@@ -1,3 +1,6 @@
+import java.time.DayOfWeek
+import java.time.LocalTime
+
 class CadenaSupermercado {
     // Lista de supermercados que pertenecen a la cadena
     private val supermercados = mutableListOf<Supermercado>()
@@ -72,5 +75,13 @@ class CadenaSupermercado {
 
     //Obtiene la lista de todos los supermercados de la cadena
     fun getSupermercados(): List<Supermercado> = supermercados.toList()
-    
+
+    //obtiene la lista de supermercados abiertos en un dia y hora especificos
+    fun getSupermercadosAbiertos(dayOfWeek: DayOfWeek, time: LocalTime): String {
+        val supermercadosAbiertos = supermercados.filter { it.isOpenAt(dayOfWeek, time) }
+
+        return supermercadosAbiertos.joinToString(", ") { supermercado ->
+            "${supermercado.nombre} (${supermercado.id})"
+        }
+    }
 }
